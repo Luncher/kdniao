@@ -3,10 +3,10 @@
 
 ## 使用方法
 
-### 下载项目
+### 安装
 
 ```shell
-git clone
+npm install kdniaosdk
 ```
 
 ### 运行测试
@@ -15,10 +15,6 @@ git clone
 
 ```shell
 npm test
-```
-
-```shell
-npm run eslint
 ```
 
 ### 基本配置
