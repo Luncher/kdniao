@@ -1,31 +1,24 @@
 import crypto from 'crypto';
 import moment from 'moment';
 import request from 'request';
+import config from '../config';
 
-
-const RequestTypes = {
-  subscribe: '1008',
-  asyncSubscribe: '101'
-};
-
-//default configure
-const KDNIAOConfig = {
-  DataType: '2'
-};
 
 export default class KDNiaoService {
   constructor(options) {
-    this.mixinOptions(options, KDNIAOConfig);
+    this.options = Object.create(null);
+    this.mixinOptions(config, options);
   }
 
   mixinOptions(...options) {
-    this.options = Object.assign({}, ...options);    
+    Object.assign(this.options, ...options);    
   }
 
-  genRequestData(type, requestData) {
+  genRequestData(requestData) {
     let sign;
     let md5sum;
 
+    requestData = JSON.stringify(requestData);    
     md5sum = crypto.createHash('md5');
     md5sum.update(requestData);
     md5sum.update(this.options.AppKey);
@@ -34,21 +27,19 @@ export default class KDNiaoService {
 
     return {
       DataSign: encodeURIComponent(sign),
-      RequestType: type,      
+      RequestType: this.options.type,      
       RequestData: encodeURIComponent(requestData),  
       DataType: this.options.DataType,
       EBusinessID: this.options.EBusinessID
     };
   }
 
-  makeRequest(type, rawData) {
+  makeRequest(rawData) {
     let url;
     let requestData;
 
     url = this.options.url;
-    rawData = JSON.stringify(rawData);
-    requestData = this.genRequestData(type, rawData);
-    
+    requestData = this.genRequestData(rawData);
     return new Promise((resolve, reject) => {
       request.post({url, form: requestData}, (err, httpResponse, body) => {
         if(err) {
@@ -61,19 +52,15 @@ export default class KDNiaoService {
     });
   }
 
-  //5	异步推送（回调）接口
-  makeAsyncSubscribe(orders, options = void 0) {
+  //4.1	物流轨迹（即时查询）
+  makeOrderTraceSync(order, options = void 0) {
     if(options) {
       this.mixinOptions(options);
     }
-    
-    let requestData = {};    
-    let requestType = RequestTypes.asyncSubscribe;    
-    requestData.PushTime = moment().format('YYYY-MM-DD hh-mm-ss');
-    requestData.data = orders.map(it => ({ShipperCode: it.shipper, LogisticCode: it.code}));
-    requestData.count = requestData.data.length;
-    requestData.EBusinessID = this.options.EBusinessID;
-    return this.makeRequest(requestType, requestData);
+    this.mixinOptions(config.traceSync);
+    let requestData = {ShipperCode: order.shipper, LogisticCode: order.code};
+
+    return this.makeRequest(requestData);
   }
 
   //4.2	物流轨迹（订阅查询）
@@ -82,10 +69,23 @@ export default class KDNiaoService {
     if(options) {
       this.mixinOptions(options);
     }
-
-    let requestType = RequestTypes.subscribe;    
+    this.mixinOptions(config.trace);    
     let requestData = {ShipperCode: order.shipper, LogisticCode: order.code};
 
-    return this.makeRequest(requestType, requestData);
+    return this.makeRequest(requestData);
+  }
+
+  //5	异步推送（回调）接口
+  makeAsyncSubscribe(orders, options = void 0) {
+    if(options) {
+      this.mixinOptions(options);
+    }
+    this.mixinOptions(config.asyncSubscribe);    
+    let requestData = {};    
+    requestData.PushTime = moment().format('YYYY-MM-DD hh-mm-ss');
+    requestData.data = orders.map(it => ({ShipperCode: it.shipper, LogisticCode: it.code}));
+    requestData.count = requestData.data.length;
+    requestData.EBusinessID = this.options.EBusinessID;
+    return this.makeRequest(requestData);
   }
 }

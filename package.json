@@ -8,7 +8,7 @@
   },
   "scripts": {
     "eslint": "eslint .",
-    "test": "mocha test/ --recursive  --compilers js:babel-register"
+    "test": "NODE_ENV=development mocha test/ --recursive  --compilers js:babel-register"
   },
   "keywords": [],
   "author": "",
