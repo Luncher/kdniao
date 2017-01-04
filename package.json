@@ -1,17 +1,22 @@
 {
-  "name": "kdniao",
-  "version": "1.0.0",
+  "name": "kdniaosdk",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "eslint": "eslint .",
+    "build_conf": "babel config -d config_lib",
+    "build": "babel src -d lib && babel config -d config_lib ",
     "test": "NODE_ENV=development mocha test/ --recursive  --compilers js:babel-register"
   },
+  "author": {
+    "name": "linchen",
+    "email": "gakiclin@gmail.com",
+    "url": "https://github.com/Luncher"
+  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -22,8 +27,6 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "blueimp-md5": "^2.6.0",
-    "btoa": "^1.1.2",
     "moment": "^2.17.1",
     "request": "^2.79.0"
   }

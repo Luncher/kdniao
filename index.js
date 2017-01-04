@@ -1,2 +1,1 @@
-require('babel-register');
-require('src/index');
+module.exports = require('./lib/index');

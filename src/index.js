@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import moment from 'moment';
 import request from 'request';
-import config from '../config';
+import config from '../config_lib';
 
 
 export default class KDNiaoService {
@@ -46,18 +46,20 @@ export default class KDNiaoService {
           reject(err);
         }
         else {
-          resolve(body);
+          try {
+            resolve(JSON.parse(body));
+          }
+          catch(err) {
+            reject(err);
+          }
         }
       });
     });
   }
 
-  //4.1	物流轨迹（即时查询）
-  makeOrderTraceSync(order, options = void 0) {
-    if(options) {
-      this.mixinOptions(options);
-    }
-    this.mixinOptions(config.traceSync);
+  //4.1	物流轨迹（即时查询）同步查询
+  makeOrderTraceSync(order, options = {}) {
+    this.mixinOptions(config.traceSync, options);
     let requestData = {ShipperCode: order.shipper, LogisticCode: order.code};
 
     return this.makeRequest(requestData);
@@ -65,23 +67,18 @@ export default class KDNiaoService {
 
   //4.2	物流轨迹（订阅查询）
   //order: {shipper: 'xxx', code: 'xx'}
-  makeOrderTrace(order, options = void 0) {
-    if(options) {
-      this.mixinOptions(options);
-    }
-    this.mixinOptions(config.trace);    
+  makeOrderTrace(order, options = {}) {
+    this.mixinOptions(config.trace, options);
     let requestData = {ShipperCode: order.shipper, LogisticCode: order.code};
 
     return this.makeRequest(requestData);
   }
 
   //5	异步推送（回调）接口
-  makeAsyncSubscribe(orders, options = void 0) {
-    if(options) {
-      this.mixinOptions(options);
-    }
-    this.mixinOptions(config.asyncSubscribe);    
+  makeAsyncSubscribe(orders, options = {}) {
     let requestData = {};    
+    
+    this.mixinOptions(config.asyncSubscribe, options);    
     requestData.PushTime = moment().format('YYYY-MM-DD hh-mm-ss');
     requestData.data = orders.map(it => ({ShipperCode: it.shipper, LogisticCode: it.code}));
     requestData.count = requestData.data.length;
