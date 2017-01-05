@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import moment from 'moment';
 import request from 'request';
-import config from '../config_lib';
+import config from './config';
 
 
 export default class KDNiaoService {

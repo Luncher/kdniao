@@ -2,13 +2,13 @@
   "name": "kdniaosdk",
   "version": "1.0.7",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "build": "babel src -d lib && babel config -d config_lib",
-    "prepublish": "npm run build",
+    "compile": "babel src -d lib",
+    "prepublish": "npm run compile",
     "test": "NODE_ENV=development mocha test/ --recursive  --compilers js:babel-register"
   },
   "author": {

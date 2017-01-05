@@ -1,5 +1,3 @@
 src/**
-config/**
-debug.js
-.vscode/**
 test/**
+debug.js
