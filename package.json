@@ -1,6 +1,6 @@
 {
   "name": "kdniaosdk",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "",
   "main": "lib/index.js",
   "directories": {
@@ -10,6 +10,10 @@
     "compile": "babel src -d lib",
     "prepublish": "npm run compile",
     "test": "NODE_ENV=development mocha test/ --recursive  --compilers js:babel-register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luncher/KDNiao"
   },
   "author": {
     "name": "linchen",
