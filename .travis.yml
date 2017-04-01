@@ -9,6 +9,7 @@ cache:
   #   node_modules
 
 install:
+  - npm install -g cross-env
   - npm install -g codecov
 
 after_script:
