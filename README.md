@@ -68,3 +68,9 @@ const config = {
 - [x] 物流轨迹（即时查询）
 - [x] 异步推送
 - [ ] 在线下单
+
+---
+
+## LICENSE
+
+  [MIT](https://mit-license.org/)
