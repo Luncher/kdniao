@@ -5,8 +5,8 @@ node_js:
 sudo: false
 
 cache:
-  directories:
-    node_modules
+  # directories:
+  #   node_modules
 
 install:
   - npm install -g codecov
