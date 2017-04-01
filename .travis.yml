@@ -3,14 +3,14 @@ node_js:
   - stable  
 
 sudo: false
-
 cache:
-  # directories:
-  #   node_modules
+  directories:
+    node_modules
 
 install:
   - npm install -g cross-env
   - npm install -g codecov
+  - npm install -g mocha
 
 after_script:
   - npm run cov
