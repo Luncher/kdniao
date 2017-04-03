@@ -7,15 +7,15 @@
 [![NPM download][download-image]][download-url]
 
 [npm-url]: https://www.npmjs.com/package/kdniaosdk
-[npm-image]: https://img.shields.io/npm/v/kdniaosdk.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/kdniaosdk.svg?style=flat
 [download-url]: https://www.npmjs.com/package/kdniaosdk
-[download-image]: https://img.shields.io/npm/dm/kdniaosdk.svg?style=flat-square
+[download-image]: https://img.shields.io/npm/dm/kdniaosdk.svg?style=flat
 [david-url]: https://david-dm.org/Luncher/KDNiao
-[david-image]: https://david-dm.org/Luncher/KDNiao.svg?style=flat-square
+[david-image]: https://david-dm.org/Luncher/KDNiao.svg?style=flat
 [travis-url]: https://travis-ci.org/Luncher/KDNiao
-[travis-image]: https://img.shields.io/travis/Luncher/KDNiao.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/Luncher/KDNiao.svg?style=flat
 [codecov-url]: https://codecov.io/gh/Luncher/KDNiao
-[codecov-image]: https://img.shields.io/codecov/c/github/Luncher/KDNiao.svg?style=flat-square
+[codecov-image]: https://img.shields.io/codecov/c/github/Luncher/KDNiao.svg?style=flat
 
 
 ## 使用方法
