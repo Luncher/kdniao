@@ -18,12 +18,12 @@ let order = {
 const service = new KDNService(config);
 
 describe('KDNService unit test', function() {
-  it('should allow makeAsyncSubscribe', () => {
-    return service.makeAsyncSubscribe([order])
-    .then(ret => {
-      assert(!ret.Success, ret.Reason);
-    });
-  });
+  // it('should allow makeAsyncSubscribe', () => {
+  //   return service.makeAsyncSubscribe([order])
+  //   .then(ret => {
+  //     assert(!ret.Success, ret.Reason);
+  //   });
+  // });
 
   it('should allow makeOrderTrace', () => {
     return service.makeOrderTrace(order)
@@ -32,10 +32,10 @@ describe('KDNService unit test', function() {
     });
   });
 
-  it('should allow makeOrderTraceSync', () => {
-    return service.makeOrderTraceSync(order)
-    .then(ret => {
-      assert(!ret.Success, ret.Reason);          
-    });
-  });
+  // it('should allow makeOrderTraceSync', () => {
+  //   return service.makeOrderTraceSync(order)
+  //   .then(ret => {
+  //     assert(!ret.Success, ret.Reason);          
+  //   });
+  // });
 });
